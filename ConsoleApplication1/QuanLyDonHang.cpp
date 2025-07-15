@@ -1,37 +1,22 @@
-#ifndef QUANLYDONHANG_H
-#define QUANLYDONHANG_H
-
-#include <string>
-#include <ctime>
+#include "QuanLyDonHang.h"
 #include <iostream>
+#include <iomanip>
+#include <ctime>
 
-class QuanLyDonHang {
-private:
-    std::string maDonHang;
-    std::time_t ngayDatHang;
-    std::string loaiGoiVanChuyen;
+QuanLyDonHang::QuanLyDonHang() : maDonHang(""), ngayDatHang(0), loaiGoiVanChuyen("") {}
+QuanLyDonHang::QuanLyDonHang(const std::string& ma, std::time_t ngay, const std::string& loai)
+    : maDonHang(ma), ngayDatHang(ngay), loaiGoiVanChuyen(loai) {
+}
+QuanLyDonHang::~QuanLyDonHang() {}
 
-public:
-    // Constructors
-    QuanLyDonHang();
-    QuanLyDonHang(const std::string& ma, std::time_t ngay, const std::string& loai);
-
-    // Destructor
-    ~QuanLyDonHang();
-
-    // Getter methods
-    std::string getMaDonHang() const;
-    std::time_t getNgayDatHang() const;
-    std::string getLoaiGoiVanChuyen() const;
-
-    // Setter methods
-    void setMaDonHang(const std::string& ma);
-    void setNgayDatHang(std::time_t ngay);
-    void setLoaiGoiVanChuyen(const std::string& loai);
-
-    // Utility methods
-    void hienThiThongTin() const;
-    std::string formatNgay() const;
-};
-
-#endif
+std::string QuanLyDonHang::getMaDonHang() const { return maDonHang; }
+std::time_t QuanLyDonHang::getNgayDatHang() const { return ngayDatHang; }
+std::string QuanLyDonHang::getLoaiGoiVanChuyen() const { return loaiGoiVanChuyen; }
+void QuanLyDonHang::setMaDonHang(const std::string& ma) { maDonHang = ma; }
+void QuanLyDonHang::setNgayDatHang(std::time_t ngay) { ngayDatHang = ngay; }
+void QuanLyDonHang::setLoaiGoiVanChuyen(const std::string& loai) { loaiGoiVanChuyen = loai; }
+void QuanLyDonHang::hienThiThongTin() const {
+    std::cout << "Ma don hang: " << maDonHang << "\n";
+    std::cout << "Loai van chuyen: " << loaiGoiVanChuyen << "\n";
+    // Add code to print ngayDatHang if needed
+}

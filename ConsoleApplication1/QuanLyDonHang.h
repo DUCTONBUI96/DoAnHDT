@@ -19,19 +19,19 @@ public:
     // Destructor
     ~QuanLyDonHang();
 
-    // Getter methods
+    //// Getter methods
     std::string getMaDonHang() const;
     std::time_t getNgayDatHang() const;
     std::string getLoaiGoiVanChuyen() const;
 
-    // Setter methods
+    //// Setter methods
     void setMaDonHang(const std::string& ma);
     void setNgayDatHang(std::time_t ngay);
     void setLoaiGoiVanChuyen(const std::string& loai);
 
-    // Utility methods
+
     void hienThiThongTin() const;
-    std::string formatNgay() const;
+    /*std::string formatNgay() const;*/
 };
 
 #endif
