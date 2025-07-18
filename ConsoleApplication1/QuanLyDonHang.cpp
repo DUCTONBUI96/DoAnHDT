@@ -10,13 +10,18 @@ QuanLyDonHang::QuanLyDonHang(const std::string& ma, std::time_t ngay, const std:
 QuanLyDonHang::~QuanLyDonHang() {}
 
 std::string QuanLyDonHang::getMaDonHang() const { return maDonHang; }
+
 std::time_t QuanLyDonHang::getNgayDatHang() const { return ngayDatHang; }
+
 std::string QuanLyDonHang::getLoaiGoiVanChuyen() const { return loaiGoiVanChuyen; }
+
 void QuanLyDonHang::setMaDonHang(const std::string& ma) { maDonHang = ma; }
+
 void QuanLyDonHang::setNgayDatHang(std::time_t ngay) { ngayDatHang = ngay; }
+
 void QuanLyDonHang::setLoaiGoiVanChuyen(const std::string& loai) { loaiGoiVanChuyen = loai; }
+
 void QuanLyDonHang::hienThiThongTin() const {
     std::cout << "Ma don hang: " << maDonHang << "\n";
     std::cout << "Loai van chuyen: " << loaiGoiVanChuyen << "\n";
-    // Add code to print ngayDatHang if needed
 }

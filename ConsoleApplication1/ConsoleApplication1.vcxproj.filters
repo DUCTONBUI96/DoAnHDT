@@ -21,9 +21,21 @@
     <ClCompile Include="QuanLyDonHang.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DonHangTrongNuoc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DonHangNgoaiNuoc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QuanLyDonHang.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DonHangTrongNuoc.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DonHangNgoaiNuoc.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
