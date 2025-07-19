@@ -40,7 +40,7 @@ void QuanLyDonHangApp::waitForEnter() {
 
 void QuanLyDonHangApp::hienThiMenu() {
     std::cout << "╔═══════════════════════════════════════════════════════════════╗\n";
-    std::cout << "║              HỆ THỐNG QUẢN LÝ ĐƠN HÀNG KẾ THỪA                ║\n";
+    std::cout << "║                 HỆ THỐNG QUẢN LÝ ĐƠN HÀNG                     ║\n";
     std::cout << "╠═══════════════════════════════════════════════════════════════╣\n";
     std::cout << "║  1. Thêm đơn hàng trong nước                                  ║\n";
     std::cout << "║  2. Thêm đơn hàng quốc tế                                     ║\n";
