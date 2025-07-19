@@ -48,7 +48,7 @@ void QuanLyDonHangApp::hienThiMenu() {
     std::cout << "║  4. Tìm kiếm đơn hàng                                         ║\n";
     std::cout << "║  5. Tính tổng doanh thu                                       ║\n";
     std::cout << "║  6. Thống kê đơn hàng                                         ║\n";
-    std::cout << "║  7. Demo đa hình (Polymorphism)                               ║\n";
+    std::cout << "║  7. Demo đa hình                                              ║\n";
     std::cout << "║  0. Thoát chương trình                                        ║\n";
     std::cout << "╚═══════════════════════════════════════════════════════════════╝\n";
     std::cout << "Nhập lựa chọn của bạn: ";

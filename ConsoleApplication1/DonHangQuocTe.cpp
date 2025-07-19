@@ -37,15 +37,15 @@ double DonHangQuocTe::TinhTongTien() {
 // Override InThongTin 
 void DonHangQuocTe::InThongTin() {
     displayHeader();
-    std::cout << "║ Loại đơn hàng      : ĐƠN HÀNG QUỐC TẾ                      ║\n";
+    std::cout << "║ Loại đơn hàng      : ĐƠN HÀNG QUỐC TẾ                        ║\n";
     std::cout << "║ Mã đơn hàng        : " << std::setw(35) << std::left << maDonHang << "║\n";
     std::cout << "║ Ngày đặt hàng      : " << std::setw(35) << std::left << ngayDatHang.toString() << "║\n";
     std::cout << "║ Loại gói vận chuyển: " << std::setw(35) << std::left << loaiGoiVanChuyen << "║\n";
-    std::cout << "║ Phí hải quan       : " << std::setw(25) << std::right << std::fixed << std::setprecision(0) << phiHaiQuan << " VND" << std::setw(5) << "║\n";
-    std::cout << "║ Phí gói dịch vụ    : " << std::setw(25) << std::right << std::fixed << std::setprecision(0) << getShippingCost() << " VND" << std::setw(5) << "║\n";
-    std::cout << "║ Phí quốc tế (+50%) : " << std::setw(25) << std::right << std::fixed << std::setprecision(0) << (getShippingCost() * 0.5) << " VND" << std::setw(5) << "║\n";
+    std::cout << "║ Phí hải quan       : " << std::setw(35) << std::left << std::fixed << std::setprecision(0) << phiHaiQuan << " VND" << " ║\n";
+    std::cout << "║ Phí gói dịch vụ    : " << std::setw(35) << std::left << std::fixed << std::setprecision(0) << getShippingCost() << " VND" << " ║\n";
+    std::cout << "║ Phí quốc tế (+50%) : " << std::setw(35) << std::left << std::fixed << std::setprecision(0) << (getShippingCost() * 0.5) << " VND" << " ║\n";
     std::cout << "╠══════════════════════════════════════════════════════════════╣\n";
-    std::cout << "║ TỔNG TIỀN          : " << std::setw(25) << std::right << std::fixed << std::setprecision(0) << TinhTongTien() << " VND" << std::setw(5) << "║\n";
+    std::cout << "║ TỔNG TIỀN          : " << std::setw(35) << std::left << std::fixed << std::setprecision(0) << TinhTongTien() << " VND" << " ║\n";
     std::cout << "╚══════════════════════════════════════════════════════════════╝\n";
 }
 
