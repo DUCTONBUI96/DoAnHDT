@@ -1,53 +1,56 @@
-﻿#include "DonHangTrongNuoc.h"
+﻿#include "DonHangQuocTe.h"
 #include <iomanip>
 #pragma execution_character_set( "utf-8" )
 
-// Default constructor
-DonHangTrongNuoc::DonHangTrongNuoc() : DonHang() {
-    phiVanChuyen = 0.0;
+//constructor
+DonHangQuocTe::DonHangQuocTe() : DonHang() {
+    phiHaiQuan = 0.0;
 }
 
 // Parameterized constructor
-DonHangTrongNuoc::DonHangTrongNuoc(const std::string& ma, const Ngay& ngay,
+DonHangQuocTe::DonHangQuocTe(const std::string& ma, const Ngay& ngay,
     const std::string& loai, double phi)
     : DonHang(ma, ngay, loai) {
-    phiVanChuyen = phi;
+    phiHaiQuan = phi;
 }
 
 // Destructor
-DonHangTrongNuoc::~DonHangTrongNuoc() {}
+DonHangQuocTe::~DonHangQuocTe() {}
 
 // Getter and Setter
-double DonHangTrongNuoc::getPhiVanChuyen() const {
-    return phiVanChuyen;
+double DonHangQuocTe::getPhiHaiQuan() const {
+    return phiHaiQuan;
 }
 
-void DonHangTrongNuoc::setPhiVanChuyen(double phi) {
-    phiVanChuyen = (phi >= 0) ? phi : 0.0;
+void DonHangQuocTe::setPhiHaiQuan(double phi) {
+    phiHaiQuan = (phi >= 0) ? phi : 0.0;
 }
 
 // Override TinhTongTien 
-double DonHangTrongNuoc::TinhTongTien() {
+double DonHangQuocTe::TinhTongTien() {
     double shippingCost = getShippingCost();
-    return phiVanChuyen + shippingCost;
+    // International shipping has 50% surcharge
+    double internationalSurcharge = shippingCost * 0.5;
+    return phiHaiQuan + shippingCost + internationalSurcharge;
 }
 
 // Override InThongTin 
-void DonHangTrongNuoc::InThongTin() {
+void DonHangQuocTe::InThongTin() {
     displayHeader();
-    std::cout << "║ Loại đơn hàng      : ĐƠN HÀNG TRONG NƯỚC                    ║\n";
+    std::cout << "║ Loại đơn hàng      : ĐƠN HÀNG QUỐC TẾ                      ║\n";
     std::cout << "║ Mã đơn hàng        : " << std::setw(35) << std::left << maDonHang << "║\n";
     std::cout << "║ Ngày đặt hàng      : " << std::setw(35) << std::left << ngayDatHang.toString() << "║\n";
     std::cout << "║ Loại gói vận chuyển: " << std::setw(35) << std::left << loaiGoiVanChuyen << "║\n";
-    std::cout << "║ Phí vận chuyển     : " << std::setw(25) << std::right << std::fixed << std::setprecision(0) << phiVanChuyen << " VND" << std::setw(5) << "║\n";
+    std::cout << "║ Phí hải quan       : " << std::setw(25) << std::right << std::fixed << std::setprecision(0) << phiHaiQuan << " VND" << std::setw(5) << "║\n";
     std::cout << "║ Phí gói dịch vụ    : " << std::setw(25) << std::right << std::fixed << std::setprecision(0) << getShippingCost() << " VND" << std::setw(5) << "║\n";
-    std::cout << "╠═══════════════════════���══════════════════════════════════════╣\n";
+    std::cout << "║ Phí quốc tế (+50%) : " << std::setw(25) << std::right << std::fixed << std::setprecision(0) << (getShippingCost() * 0.5) << " VND" << std::setw(5) << "║\n";
+    std::cout << "╠══════════════════════════════════════════════════════════════╣\n";
     std::cout << "║ TỔNG TIỀN          : " << std::setw(25) << std::right << std::fixed << std::setprecision(0) << TinhTongTien() << " VND" << std::setw(5) << "║\n";
     std::cout << "╚══════════════════════════════════════════════════════════════╝\n";
 }
 
 // Input operator
-std::istream& operator>>(std::istream& is, DonHangTrongNuoc& dh) {
+std::istream& operator>>(std::istream& is, DonHangQuocTe& dh) {
     std::cout << "Nhập mã đơn hàng: ";
     std::getline(is, dh.maDonHang);
 
@@ -58,18 +61,18 @@ std::istream& operator>>(std::istream& is, DonHangTrongNuoc& dh) {
     std::cout << "Nhập loại gói vận chuyển (co ban/nhanh/hoa toc): ";
     std::getline(is, dh.loaiGoiVanChuyen);
 
-    std::cout << "Nhập phí vận chuyển: ";
-    is >> dh.phiVanChuyen;
+    std::cout << "Nhập phí hải quan: ";
+    is >> dh.phiHaiQuan;
     is.ignore();
 
     return is;
 }
 
 // Output operator
-std::ostream& operator<<(std::ostream& os, const DonHangTrongNuoc& dh) {
-    os << "Đơn hàng trong nước - Mã: " << dh.maDonHang
+std::ostream& operator<<(std::ostream& os, const DonHangQuocTe& dh) {
+    os << "Đơn hàng quốc tế - Mã: " << dh.maDonHang
         << ", Ngày: " << dh.ngayDatHang
         << ", Loại: " << dh.loaiGoiVanChuyen
-        << ", Phí VC: " << dh.phiVanChuyen << " VND";
+        << ", Phí HQ: " << dh.phiHaiQuan << " VND";
     return os;
 }

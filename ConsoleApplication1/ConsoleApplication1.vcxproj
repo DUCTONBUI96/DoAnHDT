@@ -128,14 +128,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DonHangNgoaiNuoc.cpp" />
+    <ClCompile Include="DonHang.cpp" />
+    <ClCompile Include="DonHangQuocTe.cpp" />
     <ClCompile Include="DonHangTrongNuoc.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Ngay.cpp" />
     <ClCompile Include="QuanLyDonHang.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DonHangNgoaiNuoc.h" />
+    <ClInclude Include="DonHang.h" />
+    <ClInclude Include="DonHangQuocTe.h" />
     <ClInclude Include="DonHangTrongNuoc.h" />
+    <ClInclude Include="Ngay.h" />
     <ClInclude Include="QuanLyDonHang.h" />
   </ItemGroup>
   <ItemGroup>

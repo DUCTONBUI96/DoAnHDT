@@ -1,36 +1,46 @@
-#include "QuanLyDonHang.h"
+﻿#include "DonHangNgoaiNuoc.h"
 #include <iostream>
 #include <iomanip>
 #include <ctime>
-class DonHangNgoaiNuoc : public QuanLyDonHang {
 
-private:
-	double PhiHaiQuan;
-public:
-	DonHangNgoaiNuoc();
+// Constructor có tham số
+DonHangNgoaiNuoc::DonHangNgoaiNuoc(const std::string& ma, std::time_t ngay, const std::string& loai, double phi)
+    : QuanLyDonHang(ma, ngay, loai), PhiHaiQuan(phi) {
+}
 
-	double getPhiHaiQuan() const { return PhiHaiQuan;}
+// Constructor mặc định
+DonHangNgoaiNuoc::DonHangNgoaiNuoc() : PhiHaiQuan(0.0) {}
 
-	void setPhiHaiQuan(double phi) { PhiHaiQuan = phi; }
+// Getter
+double DonHangNgoaiNuoc::getPhiHaiQuan() const {
+    return PhiHaiQuan;
+}
 
-	double tinhTongTien() const {return PhiHaiQuan;}
+// Setter
+void DonHangNgoaiNuoc::setPhiHaiQuan(double phi) {
+    PhiHaiQuan = phi;
+}
 
-	void InThongTin() const {
-		QuanLyDonHang::hienThiThongTin();
-		std::cout << "Phi Hai Quan: " << PhiHaiQuan << "\n";
-	}
+// Tính tổng tiền
+double DonHangNgoaiNuoc::tinhTongTien() const {
+    return PhiHaiQuan;
+}
 
-	friend std::istream& operator >> (std::istream& is, DonHangNgoaiNuoc& dh) {
-		is >> dh.PhiHaiQuan;
-		return is;
-	}
+// Hiển thị thông tin
+void DonHangNgoaiNuoc::hienThiThongTin() const {
+    QuanLyDonHang::hienThiThongTin();
+    std::cout << "Phi Hai Quan: " << PhiHaiQuan << "\n";
+}
 
-	friend std::ostream& operator << (std::ostream& os, const DonHangNgoaiNuoc& dh) {
-		dh.QuanLyDonHang::hienThiThongTin();
-		os << "Phi Hai Quan: " << dh.PhiHaiQuan;
-		return os;
-	}
+// Operator nhập
+std::istream& operator>>(std::istream& is, DonHangNgoaiNuoc& dh) {
+    std::cout << "Nhap phi hai quan: ";
+    is >> dh.PhiHaiQuan;
+    return is;
+}
 
-
-
-};
+// Operator xuất
+std::ostream& operator<<(std::ostream& os, const DonHangNgoaiNuoc& dh) {
+    dh.hienThiThongTin();
+    return os;
+}

@@ -1,32 +1,27 @@
 ﻿#include <iostream>
 #include <vector>
-#include <string>
-#include <algorithm>
+#include <memory>
 #include <limits>
-#include <ctime>
-#include <iomanip>
-#include "QuanLyDonHang.h"
+#include "DonHangTrongNuoc.h"
+#include "DonHangQuocTe.h"
 #pragma execution_character_set( "utf-8" )
-
 
 class QuanLyDonHangApp {
 private:
-    std::vector<QuanLyDonHang> danhSachDonHang;
+    std::vector<std::unique_ptr<DonHang>> danhSachDonHang;
 
 public:
     void chayUngDung();
     void hienThiMenu();
-    void themDonHang();
+    void themDonHangTrongNuoc();
+    void themDonHangQuocTe();
     void hienThiTatCaDonHang();
     void timKiemDonHang();
-    void capNhatDonHang();
-    void xoaDonHang();
+    void tinhTongDoanhThu();
     void thongKeDonHang();
     void clearScreen();
     void waitForEnter();
-    std::time_t nhapNgay();
-    std::string chonLoaiVanChuyen();
-    std::string chonLoaiDonHang();
+    void demonstratePolymorphism();
 };
 
 void QuanLyDonHangApp::clearScreen() {
@@ -44,115 +39,56 @@ void QuanLyDonHangApp::waitForEnter() {
 }
 
 void QuanLyDonHangApp::hienThiMenu() {
-    std::cout << "╔═══════════════════════════════════════════════════════════╗\n";
-    std::cout << "║                  HỆ THỐNG QUẢN LÝ ĐƠN HÀNG                ║\n";
-    std::cout << "╠═══════════════════════════════════════════════════════════╣\n";
-    std::cout << "║  1. Thêm đơn hàng mới                                     ║\n";
-    std::cout << "║  2. Hiển thị tất cả đơn hàng                              ║\n";
-    std::cout << "║  3. Tìm kiếm đơn hàng                                     ║\n";
-    std::cout << "║  4. Cập nhật đơn hàng                                     ║\n";
-    std::cout << "║  5. Xóa đơn hàng                                          ║\n";
-    std::cout << "║  6. Thống kê đơn hàng                                     ║\n";
-    std::cout << "║  0. Thoát chương trình                                    ║\n";
-    std::cout << "╚═══════════════════════════════════════════════════════════╝\n";
+    std::cout << "╔═══════════════════════════════════════════════════════════════╗\n";
+    std::cout << "║              HỆ THỐNG QUẢN LÝ ĐƠN HÀNG KẾ THỪA                ║\n";
+    std::cout << "╠═══════════════════════════════════════════════════════════════╣\n";
+    std::cout << "║  1. Thêm đơn hàng trong nước                                  ║\n";
+    std::cout << "║  2. Thêm đơn hàng quốc tế                                     ║\n";
+    std::cout << "║  3. Hiển thị tất cả đơn hàng                                  ║\n";
+    std::cout << "║  4. Tìm kiếm đơn hàng                                         ║\n";
+    std::cout << "║  5. Tính tổng doanh thu                                       ║\n";
+    std::cout << "║  6. Thống kê đơn hàng                                         ║\n";
+    std::cout << "║  7. Demo đa hình (Polymorphism)                               ║\n";
+    std::cout << "║  0. Thoát chương trình                                        ║\n";
+    std::cout << "╚═══════════════════════════════════════════════════════════════╝\n";
     std::cout << "Nhập lựa chọn của bạn: ";
 }
 
-std::string QuanLyDonHangApp::chonLoaiVanChuyen() {
-    int choice;
-    std::cout << "\n┌─────────────────────────────────────┐\n";
-    std::cout << "│        LOẠI GÓI VẬN CHUYỂN          │\n";
-    std::cout << "├─────────────────────────────────────┤\n";
-    std::cout << "│ 1. Giao hàng tiêu chuẩn             │\n";
-    std::cout << "│ 2. Giao hàng nhanh                  │\n";
-    std::cout << "│ 3. Giao hàng siêu tốc               │\n";
-    std::cout << "│ 4. Giao hàng trong ngày             │\n";
-    std::cout << "└─────────────────────────────────────┘\n";
-    std::cout << "Chọn loại vận chuyển (1-4): ";
-
-    std::cin >> choice;
-    std::cin.ignore();
-
-    switch (choice) {
-    case 1: return "Giao hàng tiêu chuẩn";
-    case 2: return "Giao hàng nhanh";
-    case 3: return "Giao hàng siêu tốc";
-    case 4: return "Giao hàng trong ngày";
-    default: return "Giao hàng tiêu chuẩn";
-    }
-}
-
-std::string QuanLyDonHangApp::chonLoaiDonHang() {
-    int choice;
-    std::cout << "\n┌─────────────────────────────────────┐\n";
-    std::cout << "│        LOẠI ĐƠN HÀNG                │\n";
-    std::cout << "├─────────────────────────────────────┤\n";
-    std::cout << "│ 1. Đơn hàng trong nước              │\n";
-    std::cout << "│ 2. Đơn hàng ngoài nước              │\n";
-    std::cout << "└─────────────────────────────────────┘\n";
-    std::cout << "Chọn loại vận chuyển : ";
-
-    std::cin >> choice;
-    std::cin.ignore();
-
-    switch (choice) {
-    case 1: return "Đơn hàng trong nước";
-    case 2: return "Đơn hàng ngoài nước ";
-    default: return "Đơn hàng trong nước";
-    }
-}
-
-std::time_t QuanLyDonHangApp::nhapNgay() {
-    int ngay, thang, nam, gio, phut;
-    std::cout << "Nhập ngày (dd mm yyyy hh mm): ";
-    std::cin >> ngay >> thang >> nam >> gio >> phut;
-
-    std::tm tm = {};
-    tm.tm_mday = ngay;
-    tm.tm_mon = thang - 1;  // months since January
-    tm.tm_year = nam - 1900; // years since 1900
-    tm.tm_hour = gio;
-    tm.tm_min = phut;
-    tm.tm_sec = 0;
-
-    return std::mktime(&tm);
-}
-
-void QuanLyDonHangApp::themDonHang() {
+void QuanLyDonHangApp::themDonHangTrongNuoc() {
     clearScreen();
-    std::cout << "╔═══════════════════════════════════════╗\n";
-    std::cout << "║           THÊM ĐƠN HÀNG MỚI           ║\n";
-    std::cout << "╚═══════════════════════════════════════╝\n\n";
+    std::cout << "╔═══════════════════════════════════════════════════════════════╗\n";
+    std::cout << "║                  THÊM ĐƠN HÀNG TRONG NƯỚC                     ║\n";
+    std::cout << "╚═══════════════════════════════════════════════════════════════╝\n\n";
 
-    std::string maDonHang;
-    std::cout << "Nhập mã đơn hàng: ";
-    std::getline(std::cin, maDonHang);
+    auto donHang = std::make_unique<DonHangTrongNuoc>();
+    std::cin >> *donHang;
 
-    // Check if order ID already exists
-    for (const auto& donHang : danhSachDonHang) {
-        if (donHang.getMaDonHang() == maDonHang) {
-            std::cout << "❌ Mã đơn hàng đã tồn tại!\n";
-            waitForEnter();
-            return;
-        }
-    }
+    danhSachDonHang.push_back(std::move(donHang));
 
-    std::time_t ngayDatHang = nhapNgay();
-    std::string loaiVanChuyen = chonLoaiVanChuyen();
+    std::cout << "\n✅ Đã thêm đơn hàng trong nước thành công!\n";
+    waitForEnter();
+}
 
-    QuanLyDonHang donHangMoi(maDonHang, ngayDatHang, loaiVanChuyen);
-    danhSachDonHang.push_back(donHangMoi);
+void QuanLyDonHangApp::themDonHangQuocTe() {
+    clearScreen();
+    std::cout << "╔═══════════════════════════════════════════════════════════════╗\n";
+    std::cout << "║                    THÊM ĐƠN HÀNG QUỐC TẾ                      ║\n";
+    std::cout << "╚═══════════════════════════════════════════════════════════════╝\n\n";
 
-    std::cout << "\n✅ Đã thêm đơn hàng thành công!\n";
-    donHangMoi.hienThiThongTin();
+    auto donHang = std::make_unique<DonHangQuocTe>();
+    std::cin >> *donHang;
+
+    danhSachDonHang.push_back(std::move(donHang));
+
+    std::cout << "\n✅ Đã thêm đơn hàng quốc tế thành công!\n";
     waitForEnter();
 }
 
 void QuanLyDonHangApp::hienThiTatCaDonHang() {
     clearScreen();
-    std::cout << "╔═══════════════════════════════════════╗\n";
-    std::cout << "║        DANH SÁCH TẤT CẢ ĐƠN HÀNG      ║\n";
-    std::cout << "╚═══════════════════════════════════════╝\n\n";
+    std::cout << "╔═══════════════════════════════════════════════════════════════╗\n";
+    std::cout << "║                   DANH SÁCH TẤT CẢ ĐƠN HÀNG                   ║\n";
+    std::cout << "╚═══════════════════════════════════════════════════════════════╝\n\n";
 
     if (danhSachDonHang.empty()) {
         std::cout << "❌ Không có đơn hàng nào trong hệ thống.\n";
@@ -164,7 +100,7 @@ void QuanLyDonHangApp::hienThiTatCaDonHang() {
 
     for (size_t i = 0; i < danhSachDonHang.size(); ++i) {
         std::cout << "📦 Đơn hàng #" << (i + 1) << ":\n";
-        danhSachDonHang[i].hienThiThongTin();
+        danhSachDonHang[i]->InThongTin();  // Polymorphism in action!
         std::cout << "\n";
     }
 
@@ -173,9 +109,9 @@ void QuanLyDonHangApp::hienThiTatCaDonHang() {
 
 void QuanLyDonHangApp::timKiemDonHang() {
     clearScreen();
-    std::cout << "╔═══════════════════════════════════════╗\n";
-    std::cout << "║           TÌM KIẾM ĐƠN HÀNG           ║\n";
-    std::cout << "╚═══════════════════════════════════════╝\n\n";
+    std::cout << "╔═══════════════════════════════════════════════════════════════╗\n";
+    std::cout << "║                      TÌM KIẾM ĐƠN HÀNG                        ║\n";
+    std::cout << "╚═══════════════════════════════════════════════════════════════╝\n\n";
 
     std::string maTim;
     std::cout << "Nhập mã đơn hàng cần tìm: ";
@@ -183,9 +119,9 @@ void QuanLyDonHangApp::timKiemDonHang() {
 
     bool timThay = false;
     for (const auto& donHang : danhSachDonHang) {
-        if (donHang.getMaDonHang() == maTim) {
+        if (donHang->getMaDonHang() == maTim) {
             std::cout << "\n✅ Tìm thấy đơn hàng:\n";
-            donHang.hienThiThongTin();
+            donHang->InThongTin();  // Polymorphism
             timThay = true;
             break;
         }
@@ -198,110 +134,52 @@ void QuanLyDonHangApp::timKiemDonHang() {
     waitForEnter();
 }
 
-void QuanLyDonHangApp::capNhatDonHang() {
+void QuanLyDonHangApp::tinhTongDoanhThu() {
     clearScreen();
-    std::cout << "╔═══════════════════════════════════════╗\n";
-    std::cout << "║          CẬP NHẬT ĐƠN HÀNG            ║\n";
-    std::cout << "╚═══════════════════════════════════════╝\n\n";
+    std::cout << "╔═══════════════════════════════════════════════════════════════╗\n";
+    std::cout << "║                     TỔNG DOANH THU                            ║\n";
+    std::cout << "╚═══════════════════════════════════════════════════════════════╝\n\n";
 
-    std::string maTim;
-    std::cout << "Nhập mã đơn hàng cần cập nhật: ";
-    std::getline(std::cin, maTim);
+    if (danhSachDonHang.empty()) {
+        std::cout << "❌ Không có đơn hàng nào để tính doanh thu.\n";
+        waitForEnter();
+        return;
+    }
 
-    for (auto& donHang : danhSachDonHang) {
-        if (donHang.getMaDonHang() == maTim) {
-            std::cout << "\n📋 Thông tin hiện tại:\n";
-            donHang.hienThiThongTin();
+    double tongDoanhThu = 0.0;
+    double doanhThuTrongNuoc = 0.0;
+    double doanhThuQuocTe = 0.0;
 
-            int choice;
-            std::cout << "\nChọn thông tin cần cập nhật:\n";
-            std::cout << "1. Mã đơn hàng\n";
-            std::cout << "2. Ngày đặt hàng\n";
-            std::cout << "3. Loại gói vận chuyển\n";
-            std::cout << "Nhập lựa chọn: ";
-            std::cin >> choice;
-            std::cin.ignore();
+    for (const auto& donHang : danhSachDonHang) {
+        double tien = donHang->TinhTongTien();  // Polymorphism
+        tongDoanhThu += tien;
 
-            switch (choice) {
-            case 1: {
-                std::string maMoi;
-                std::cout << "Nhập mã đơn hàng mới: ";
-                std::getline(std::cin, maMoi);
-                donHang.setMaDonHang(maMoi);
-                break;
-            }
-            case 2: {
-                std::time_t ngayMoi = nhapNgay();
-                donHang.setNgayDatHang(ngayMoi);
-                break;
-            }
-            case 3: {
-                std::string loaiMoi = chonLoaiVanChuyen();
-                donHang.setLoaiGoiVanChuyen(loaiMoi);
-                break;
-            }
-            default:
-                std::cout << "❌ Lựa chọn không hợp lệ!\n";
-                waitForEnter();
-                return;
-            }
-
-            std::cout << "\n✅ Cập nhật thành công!\n";
-            std::cout << "📋 Thông tin sau khi cập nhật:\n";
-            donHang.hienThiThongTin();
-            waitForEnter();
-            return;
+        // Check type using dynamic_cast
+        if (dynamic_cast<DonHangTrongNuoc*>(donHang.get())) {
+            doanhThuTrongNuoc += tien;
+        }
+        else if (dynamic_cast<DonHangQuocTe*>(donHang.get())) {
+            doanhThuQuocTe += tien;
         }
     }
 
-    std::cout << "\n❌ Không tìm thấy đơn hàng với mã: " << maTim << "\n";
-    waitForEnter();
-}
-
-void QuanLyDonHangApp::xoaDonHang() {
-    clearScreen();
-    std::cout << "╔═══════════════════════════════════════╗\n";
-    std::cout << "║            XÓA ĐƠN HÀNG               ║\n";
-    std::cout << "╚═══════════════════════════════════════╝\n\n";
-
-    std::string maTim;
-    std::cout << "Nhập mã đơn hàng cần xóa: ";
-    std::getline(std::cin, maTim);
-
-    auto it = std::find_if(danhSachDonHang.begin(), danhSachDonHang.end(),
-        [&maTim](const QuanLyDonHang& donHang) {
-            return donHang.getMaDonHang() == maTim;
-        });
-
-    if (it != danhSachDonHang.end()) {
-        std::cout << "\n📋 Thông tin đơn hàng sẽ bị xóa:\n";
-        it->hienThiThongTin();
-
-        char xacNhan;
-        std::cout << "\nBạn có chắc chắn muốn xóa? (y/n): ";
-        std::cin >> xacNhan;
-        std::cin.ignore();
-
-        if (xacNhan == 'y' || xacNhan == 'Y') {
-            danhSachDonHang.erase(it);
-            std::cout << "\n✅ Đã xóa đơn hàng thành công!\n";
-        }
-        else {
-            std::cout << "\n❌ Hủy thao tác xóa.\n";
-        }
-    }
-    else {
-        std::cout << "\n❌ Không tìm thấy đơn hàng với mã: " << maTim << "\n";
-    }
+    std::cout << "┌─────────────────────────────────────────────────────────────┐\n";
+    std::cout << "│                      BÁO CÁO DOANH THU                      │\n";
+    std::cout << "├─────────────────────────────────────────────────────────────┤\n";
+    std::cout << "│ Doanh thu trong nước   : " << std::setw(25) << std::right << std::fixed << std::setprecision(0) << doanhThuTrongNuoc << " VND │\n";
+    std::cout << "│ Doanh thu quốc tế      : " << std::setw(25) << std::right << std::fixed << std::setprecision(0) << doanhThuQuocTe << " VND │\n";
+    std::cout << "├─────────────────────────────────────────────────────────────┤\n";
+    std::cout << "│ TỔNG DOANH THU         : " << std::setw(25) << std::right << std::fixed << std::setprecision(0) << tongDoanhThu << " VND │\n";
+    std::cout << "└─────────────────────────────────────────────────────────────┘\n";
 
     waitForEnter();
 }
 
 void QuanLyDonHangApp::thongKeDonHang() {
     clearScreen();
-    std::cout << "╔═══════════════════════════════════════╗\n";
-    std::cout << "║           THỐNG KÊ ĐƠN HÀNG           ║\n";
-    std::cout << "╚═══════════════════════════════════════╝\n\n";
+    std::cout << "╔═══════════════════════════════════════════════════════════════╗\n";
+    std::cout << "║                      THỐNG KÊ ĐƠN HÀNG                        ║\n";
+    std::cout << "╚═══════════════════════════════════════════════════════════════╝\n\n";
 
     if (danhSachDonHang.empty()) {
         std::cout << "❌ Không có đơn hàng nào để thống kê.\n";
@@ -309,27 +187,71 @@ void QuanLyDonHangApp::thongKeDonHang() {
         return;
     }
 
-    // Count shipping types
-    int tieuChuan = 0, nhanh = 0, sieuToc = 0, trongNgay = 0;
+    int soTrongNuoc = 0, soQuocTe = 0;
+    int coBan = 0, nhanh = 0, hoaToc = 0;
 
     for (const auto& donHang : danhSachDonHang) {
-        std::string loai = donHang.getLoaiGoiVanChuyen();
-        if (loai == "Giao hàng tiêu chuẩn") tieuChuan++;
-        else if (loai == "Giao hàng nhanh") nhanh++;
-        else if (loai == "Giao hàng siêu tốc") sieuToc++;
-        else if (loai == "Giao hàng trong ngày") trongNgay++;
+        // Count by type
+        if (dynamic_cast<DonHangTrongNuoc*>(donHang.get())) {
+            soTrongNuoc++;
+        }
+        else if (dynamic_cast<DonHangQuocTe*>(donHang.get())) {
+            soQuocTe++;
+        }
+
+        // Count by shipping type
+        std::string loai = donHang->getLoaiGoiVanChuyen();
+        if (loai == "co ban") coBan++;
+        else if (loai == "nhanh") nhanh++;
+        else if (loai == "hoa toc") hoaToc++;
     }
 
-    std::cout << "┌─────────────────────────────────────────────────────────┐\n";
-    std::cout << "│                    THỐNG KÊ TỔNG QUAN                   │\n";
-    std::cout << "├─────────────────────────────────────────────────────────┤\n";
-    std::cout << "│ Tổng số đơn hàng        : " << std::setw(25) << danhSachDonHang.size() << "│\n";
-    std::cout << "│ Giao hàng tiêu chuẩn    : " << std::setw(25) << tieuChuan << "│\n";
-    std::cout << "│ Giao hàng nhanh         : " << std::setw(25) << nhanh << "│\n";
-    std::cout << "│ Giao hàng siêu tốc      : " << std::setw(25) << sieuToc << "│\n";
-    std::cout << "│ Giao hàng trong ngày    : " << std::setw(25) << trongNgay << "│\n";
-    std::cout << "└─────────────────────────────────────────────────────────┘\n";
+    std::cout << "┌─────────────────────────────────────────────────────────────┐\n";
+    std::cout << "│                    THỐNG KÊ TỔNG QUAN                       │\n";
+    std::cout << "├─────────────────────────────────────────────────────────────┤\n";
+    std::cout << "│ Tổng số đơn hàng       : " << std::setw(30) << danhSachDonHang.size() << "│\n";
+    std::cout << "│ Đơn hàng trong nước    : " << std::setw(30) << soTrongNuoc << "│\n";
+    std::cout << "│ Đơn hàng quốc tế       : " << std::setw(30) << soQuocTe << "│\n";
+    std::cout << "├─────────────────────────────────────────────────────────────┤\n";
+    std::cout << "│ Gói cơ bản             : " << std::setw(30) << coBan << "│\n";
+    std::cout << "│ Gói nhanh              : " << std::setw(30) << nhanh << "│\n";
+    std::cout << "│ Gói hỏa tốc            : " << std::setw(30) << hoaToc << "│\n";
+    std::cout << "└─────────────────────────────────────────────────────────────┘\n";
 
+    waitForEnter();
+}
+
+void QuanLyDonHangApp::demonstratePolymorphism() {
+    clearScreen();
+    std::cout << "╔═══════════════════════════════════════════════════════════════╗\n";
+    std::cout << "║                    DEMO ĐA HÌNH (POLYMORPHISM)                ║\n";
+    std::cout << "╚═══════════════════════════════════════════════════════════════╝\n\n";
+
+    // Create sample orders
+    std::vector<std::unique_ptr<DonHang>> demoOrders;
+
+    // Create domestic order
+    auto donHangTN = std::make_unique<DonHangTrongNuoc>("DH001", Ngay(15, 1, 2024), "nhanh", 100000);
+    demoOrders.push_back(std::move(donHangTN));
+
+    // Create international order
+    auto donHangQT = std::make_unique<DonHangQuocTe>("DH002", Ngay(16, 1, 2024), "hoa toc", 200000);
+    demoOrders.push_back(std::move(donHangQT));
+
+    std::cout << "🎯 Demonstrating Polymorphism:\n";
+    std::cout << "Cùng một con trỏ DonHang* nhưng gọi các phương thức khác nhau!\n\n";
+
+    for (size_t i = 0; i < demoOrders.size(); ++i) {
+        std::cout << "📦 Demo Order #" << (i + 1) << ":\n";
+
+        // Polymorphic method calls
+        demoOrders[i]->InThongTin();  // Calls appropriate derived class method
+
+        std::cout << "\n💰 Tổng tiền (polymorphic call): "
+            << demoOrders[i]->TinhTongTien() << " VND\n\n";  // Calls appropriate derived class method
+    }
+
+    std::cout << "✨ Đây chính là đa hình! Cùng một interface nhưng hành vi khác nhau!\n";
     waitForEnter();
 }
 
@@ -345,22 +267,25 @@ void QuanLyDonHangApp::chayUngDung() {
 
         switch (luaChon) {
         case 1:
-            themDonHang();
+            themDonHangTrongNuoc();
             break;
         case 2:
-            hienThiTatCaDonHang();
+            themDonHangQuocTe();
             break;
         case 3:
-            timKiemDonHang();
+            hienThiTatCaDonHang();
             break;
         case 4:
-            capNhatDonHang();
+            timKiemDonHang();
             break;
         case 5:
-            xoaDonHang();
+            tinhTongDoanhThu();
             break;
         case 6:
             thongKeDonHang();
+            break;
+        case 7:
+            demonstratePolymorphism();
             break;
         case 0:
             std::cout << "\n👋 Cảm ơn bạn đã sử dụng hệ thống!\n";
@@ -374,10 +299,11 @@ void QuanLyDonHangApp::chayUngDung() {
 }
 
 int main() {
-    // Set console to support UTF-8 (for Windows)
 #ifdef _WIN32
     system("chcp 65001 > nul");
 #endif
+
+    std::cout << "🚀 Khởi động hệ thống quản lý đơn hàng với kế thừa và đa hình...\n\n";
 
     QuanLyDonHangApp app;
     app.chayUngDung();

@@ -1,25 +1,32 @@
-#pragma once
-#include "QuanLyDonHang.h"
-#include <iostream>
-#include <iomanip>
-#include <ctime>
-class DonHangTrongNuoc : public QuanLyDonHang {
+﻿#ifndef DONHANGTRONGNUOC_H
+#define DONHANGTRONGNUOC_H
 
+#include "DonHang.h"
+
+class DonHangTrongNuoc : public DonHang {
 private:
-	double PhiVanChuyen;
+    double phiVanChuyen;
+
 public:
-	DonHangTrongNuoc();
+    // Constructors
+    DonHangTrongNuoc();
+    DonHangTrongNuoc(const std::string& ma, const Ngay& ngay,
+        const std::string& loai, double phi);
 
-	double getPhiHaiQuan() const;
+    // Destructor
+    virtual ~DonHangTrongNuoc();
 
-	void setPhiHaiQuan(double phi);
+    // Getter and Setter
+    double getPhiVanChuyen() const;
+    void setPhiVanChuyen(double phi);
 
-	double tinhTongTien() const;
+    // Override virtual 
+    virtual double TinhTongTien() override;
+    virtual void InThongTin() override;
 
-	void InThongTin() const;
-
-	friend std::istream& operator >> (std::istream& is, DonHangTrongNuoc& dh);
-
-	friend std::ostream& operator << (std::ostream& os, const DonHangTrongNuoc& dh);
-
+    //input/output
+    friend std::istream& operator>>(std::istream& is, DonHangTrongNuoc& dh);
+    friend std::ostream& operator<<(std::ostream& os, const DonHangTrongNuoc& dh);
 };
+
+#endif

@@ -24,7 +24,13 @@
     <ClCompile Include="DonHangTrongNuoc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DonHangNgoaiNuoc.cpp">
+    <ClCompile Include="DonHangQuocTe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DonHang.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ngay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +41,13 @@
     <ClInclude Include="DonHangTrongNuoc.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="DonHangNgoaiNuoc.h">
+    <ClInclude Include="DonHangQuocTe.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DonHang.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ngay.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
