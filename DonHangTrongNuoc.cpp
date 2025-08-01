@@ -36,15 +36,16 @@ double DonHangTrongNuoc::TinhTongTien() {
 void DonHangTrongNuoc::InThongTin() {
     displayHeader();
     std::cout << "║ Loại đơn hàng      : ĐƠN HÀNG TRONG NƯỚC                     ║\n";
-    std::cout << "║ Mã đơn hàng        : " << std::setw(40) << std::left << maDonHang << "║\n";
-    std::cout << "║ Ngày đặt hàng      : " << std::setw(40) << std::left << ngayDatHang.toString() << "║\n";
-    std::cout << "║ Loại gói vận chuyển: " << std::setw(40) << std::left << loaiGoiVanChuyen << "║\n";
-    std::cout << "║ Phí vận chuyển     : " << std::setw(35) << std::right << std::fixed << std::setprecision(0) << phiVanChuyen << " VND" << std::setw(5) << "║\n";
-    std::cout << "║ Phí gói dịch vụ    : " << std::setw(35) << std::right << std::fixed << std::setprecision(0) << getShippingCost() << " VND" << std::setw(5) << "║\n";
-    std::cout << "╠═══════════════════════���════════════════════════════════════╣\n";
-    std::cout << "║ TỔNG TIỀN          : " << std::setw(35) << std::right << std::fixed << std::setprecision(0) << TinhTongTien() << " VND" << std::setw(5) << "║\n";
+    std::cout << "║ Mã đơn hàng        : " << std::setw(40) << std::left << std::fixed << maDonHang << "║\n";
+    std::cout << "║ Ngày đặt hàng      : " << std::setw(40) << std::left << std::fixed << ngayDatHang.toString() << "║\n";
+    std::cout << "║ Loại gói vận chuyển: " << std::setw(40) << std::left << std::fixed << loaiGoiVanChuyen << "║\n";
+    std::cout << "║ Phí vận chuyển     : " << std::setw(35) << std::left << std::fixed << std::setprecision(0) << phiVanChuyen << " VND" << " ║\n";
+    std::cout << "║ Phí gói dịch vụ    : " << std::setw(35) << std::left << std::fixed << std::setprecision(0) << getShippingCost() << " VND" << " ║\n";
+    std::cout << "╠══════════════════════════════════════════════════════════════╣\n";
+    std::cout << "║ TỔNG TIỀN          : " << std::setw(35) << std::left << std::fixed << std::setprecision(0) << TinhTongTien() << " VND" << " ║\n";
     std::cout << "╚══════════════════════════════════════════════════════════════╝\n";
 }
+
 
 // Input operator
 std::istream& operator>>(std::istream& is, DonHangTrongNuoc& dh) {

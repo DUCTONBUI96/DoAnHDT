@@ -224,7 +224,7 @@ void QuanLyDonHangApp::thongKeDonHang() {
 void QuanLyDonHangApp::demonstratePolymorphism() {
     clearScreen();
     std::cout << "╔═══════════════════════════════════════════════════════════════╗\n";
-    std::cout << "║                    DEMO ĐA HÌNH (POLYMORPHISM)                ║\n";
+    std::cout << "║                           DEMO                                ║\n";
     std::cout << "╚═══════════════════════════════════════════════════════════════╝\n\n";
 
     // Create sample orders
@@ -238,7 +238,6 @@ void QuanLyDonHangApp::demonstratePolymorphism() {
     auto donHangQT = std::make_unique<DonHangQuocTe>("DH002", Ngay(16, 1, 2024), "hoa toc", 200000);
     demoOrders.push_back(std::move(donHangQT));
 
-    std::cout << "🎯 Demonstrating Polymorphism:\n";
     std::cout << "Cùng một con trỏ DonHang* nhưng gọi các phương thức khác nhau!\n\n";
 
     for (size_t i = 0; i < demoOrders.size(); ++i) {
@@ -247,11 +246,10 @@ void QuanLyDonHangApp::demonstratePolymorphism() {
         // Polymorphic method calls
         demoOrders[i]->InThongTin();  // Calls appropriate derived class method
 
-        std::cout << "\n💰 Tổng tiền (polymorphic call): "
-            << demoOrders[i]->TinhTongTien() << " VND\n\n";  // Calls appropriate derived class method
+        
+        std::cout<< demoOrders[i]->TinhTongTien() << " VND\n\n";  // Calls appropriate derived class method
     }
 
-    std::cout << "✨ Đây chính là đa hình! Cùng một interface nhưng hành vi khác nhau!\n";
     waitForEnter();
 }
 
