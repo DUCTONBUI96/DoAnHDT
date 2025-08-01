@@ -1,0 +1,45 @@
+# Makefile for Order Management System with Inheritance
+
+CXX = g++
+CXXFLAGS = -std=c++14 -Wall -Wextra -O2
+TARGET = QuanLyDonHangKeThua
+SOURCES = main.cpp Ngay.cpp DonHang.cpp DonHangTrongNuoc.cpp DonHangQuocTe.cpp
+OBJECTS = $(SOURCES:.cpp=.o)
+HEADERS = Ngay.h DonHang.h DonHangTrongNuoc.h DonHangQuocTe.h
+
+# Default target
+all: $(TARGET)
+
+# Build the executable
+$(TARGET): $(OBJECTS)
+	$(CXX) $(OBJECTS) -o $(TARGET)
+
+# Compile source files
+%.o: %.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Clean build files
+clean:
+	rm -f $(OBJECTS) $(TARGET)
+
+# Run the program
+run: $(TARGET)
+	./$(TARGET)
+
+# Debug build
+debug: CXXFLAGS += -g -DDEBUG
+debug: $(TARGET)
+
+# Install (copy to /usr/local/bin)
+install: $(TARGET)
+	sudo cp $(TARGET) /usr/local/bin/
+
+# Uninstall
+uninstall:
+	sudo rm -f /usr/local/bin/$(TARGET)
+
+# Check for memory leaks (requires valgrind)
+memcheck: $(TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET)
+
+.PHONY: all clean run debug install uninstall memcheck
