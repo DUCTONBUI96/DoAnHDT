@@ -48,7 +48,7 @@ void QuanLyDonHangApp::hienThiMenu() {
     std::cout << "║  4. Tìm kiếm đơn hàng                                         ║\n";
     std::cout << "║  5. Tính tổng doanh thu                                       ║\n";
     std::cout << "║  6. Thống kê đơn hàng                                         ║\n";
-    std::cout << "║  7. Demo đa hình                                              ║\n";
+    std::cout << "║  7. Demo                                                      ║\n";
     std::cout << "║  0. Thoát chương trình                                        ║\n";
     std::cout << "╚═══════════════════════════════════════════════════════════════╝\n";
     std::cout << "Nhập lựa chọn của bạn: ";
@@ -100,7 +100,7 @@ void QuanLyDonHangApp::hienThiTatCaDonHang() {
 
     for (size_t i = 0; i < danhSachDonHang.size(); ++i) {
         std::cout << "📦 Đơn hàng #" << (i + 1) << ":\n";
-        danhSachDonHang[i]->InThongTin();  // Polymorphism in action!
+        danhSachDonHang[i]->InThongTin(); 
         std::cout << "\n";
     }
 
@@ -121,7 +121,7 @@ void QuanLyDonHangApp::timKiemDonHang() {
     for (const auto& donHang : danhSachDonHang) {
         if (donHang->getMaDonHang() == maTim) {
             std::cout << "\n✅ Tìm thấy đơn hàng:\n";
-            donHang->InThongTin();  // Polymorphism
+            donHang->InThongTin(); 
             timThay = true;
             break;
         }
@@ -151,7 +151,7 @@ void QuanLyDonHangApp::tinhTongDoanhThu() {
     double doanhThuQuocTe = 0.0;
 
     for (const auto& donHang : danhSachDonHang) {
-        double tien = donHang->TinhTongTien();  // Polymorphism
+        double tien = donHang->TinhTongTien(); 
         tongDoanhThu += tien;
 
         // Check type using dynamic_cast
@@ -238,16 +238,12 @@ void QuanLyDonHangApp::demonstratePolymorphism() {
     auto donHangQT = std::make_unique<DonHangQuocTe>("DH002", Ngay(16, 1, 2024), "hoa toc", 200000);
     demoOrders.push_back(std::move(donHangQT));
 
-    std::cout << "Cùng một con trỏ DonHang* nhưng gọi các phương thức khác nhau!\n\n";
-
     for (size_t i = 0; i < demoOrders.size(); ++i) {
         std::cout << "📦 Demo Order #" << (i + 1) << ":\n";
 
-        // Polymorphic method calls
-        demoOrders[i]->InThongTin();  // Calls appropriate derived class method
-
+        demoOrders[i]->InThongTin(); 
         
-        std::cout<< demoOrders[i]->TinhTongTien() << " VND\n\n";  // Calls appropriate derived class method
+        std::cout<< demoOrders[i]->TinhTongTien() << " VND\n\n";  
     }
 
     waitForEnter();

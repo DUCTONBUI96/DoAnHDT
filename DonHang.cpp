@@ -9,7 +9,7 @@ DonHang::DonHang() {
     loaiGoiVanChuyen = "co ban";
 }
 
-// Parameterized constructor
+//constructor
 DonHang::DonHang(const std::string& ma, const Ngay& ngay, const std::string& loai) {
     maDonHang = ma;
     ngayDatHang = ngay;
@@ -17,9 +17,7 @@ DonHang::DonHang(const std::string& ma, const Ngay& ngay, const std::string& loa
 }
 
 //destructor
-DonHang::~DonHang() {
-    // Base class destructor
-}
+DonHang::~DonHang() {}
 
 // Getter
 std::string DonHang::getMaDonHang() const {

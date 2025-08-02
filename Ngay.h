@@ -1,5 +1,4 @@
-#ifndef NGAY_H
-#define NGAY_H
+#pragma once
 
 #include <iostream>
 #include <iomanip>
@@ -38,4 +37,3 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Ngay& date);
 };
 
-#endif

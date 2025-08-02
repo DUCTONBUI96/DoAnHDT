@@ -17,11 +17,12 @@ DonHangTrongNuoc::DonHangTrongNuoc(const std::string& ma, const Ngay& ngay,
 // Destructor
 DonHangTrongNuoc::~DonHangTrongNuoc() {}
 
-// Getter and Setter
+// Getter
 double DonHangTrongNuoc::getPhiVanChuyen() const {
     return phiVanChuyen;
 }
 
+// Setter
 void DonHangTrongNuoc::setPhiVanChuyen(double phi) {
     phiVanChuyen = (phi >= 0) ? phi : 0.0;
 }
@@ -32,7 +33,7 @@ double DonHangTrongNuoc::TinhTongTien() {
     return phiVanChuyen + shippingCost;
 }
 
-// Override InThongTin 
+//InThongTin 
 void DonHangTrongNuoc::InThongTin() {
     displayHeader();
     std::cout << "║ Loại đơn hàng      : ĐƠN HÀNG TRONG NƯỚC                     ║\n";

@@ -133,14 +133,12 @@
     <ClCompile Include="DonHangTrongNuoc.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ngay.cpp" />
-    <ClCompile Include="QuanLyDonHang.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DonHang.h" />
     <ClInclude Include="DonHangQuocTe.h" />
     <ClInclude Include="DonHangTrongNuoc.h" />
     <ClInclude Include="Ngay.h" />
-    <ClInclude Include="QuanLyDonHang.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile.win" />

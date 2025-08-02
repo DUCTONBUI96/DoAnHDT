@@ -1,2 +1,7 @@
-﻿  main.cpp
+﻿  DonHang.cpp
+  DonHangQuocTe.cpp
+  DonHangTrongNuoc.cpp
+  Ngay.cpp
+  main.cpp
+  Generating Code...
   ConsoleApplication1.vcxproj -> D:\DoAnHDT-master\x64\Debug\DoAnCK.exe

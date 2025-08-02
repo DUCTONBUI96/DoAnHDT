@@ -1,6 +1,4 @@
-#ifndef DONHANGQUOCTE_H
-#define DONHANGQUOCTE_H
-
+#pragma once
 #include "DonHang.h"
 
 class DonHangQuocTe : public DonHang {
@@ -20,7 +18,7 @@ public:
     double getPhiHaiQuan() const;
     void setPhiHaiQuan(double phi);
 
-    // Override virtual 
+    //virtual 
     virtual double TinhTongTien() override;
     virtual void InThongTin() override;
 
@@ -28,5 +26,3 @@ public:
     friend std::istream& operator>>(std::istream& is, DonHangQuocTe& dh);
     friend std::ostream& operator<<(std::ostream& os, const DonHangQuocTe& dh);
 };
-
-#endif
